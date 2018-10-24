@@ -668,13 +668,31 @@ more padding on the right to avoid overlap
     Class to put on all form labels
 */
 
-.c-label {
+.c-label--floating {
     margin-bottom: 0;
     padding-bottom: 8px;
     font-size: 14px;
     line-height: 16px;
     color: var(--color-neutral-x-dark);
+    position: absolute;
+    top: 12px;
+    left: 8px;
+    padding: 4px 8px;
+    will-change: transform;
+    transform: translateY(0);
+    transition: transform 200mx ease-in-out;
+    box-shadow: 0 0 4px 4px rgba(255,255,255,0.8);
+    background: white;
 }
+
+.c-input:focus + .c-label--floating {
+    transform: translateY(-24px);
+}
+
+.is-floating + .c-label--floating {
+    transform: translateY(-24px);
+}
+
 
 /*
     Component: Dropdown Button
@@ -682,6 +700,34 @@ more padding on the right to avoid overlap
     Class to put on form buttons or
 */
 
+.c-dropdown {
+    position: relative;
+    margin-bottom: 12px;
+}
+
+.c-dropdownbutton {
+    border: 1px solid var(--color-neutral-xxx-light);
+    width: 100px;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.c-dropdownbutton:active {
+    box-shadow: var(--focus-shadow);
+}
+
+
+.c-dropdownbutton__symbol {
+    height: 18px;
+    width: 18px;
+    display: inline-block;
+}
+
+.c-dropdown-content {
+    position: relative;
+    display: none;
+    
+}
 
 
 /*
@@ -732,6 +778,17 @@ more padding on the right to avoid overlap
 */
 
 /* Hide the actual input with the class .o-hide-accessible */
+
+.o-hide-accessible {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
 
 /* the label is a separate component */
 .c-custom-input-option-label {
@@ -965,12 +1022,112 @@ Component: Password Toggle
 Password toggle custom checkbox
 */
 
+.c-password-toggle-container {
+    display: block; 
+    position: relative;
+}
+
+.c-password-toggle__symbol {
+    display: block;
+    position: absolute;
+    height: 24px;
+    width: 24px;
+    top: 6px;
+    right: 8px;
+}
+
+.c-password-toggle__symbol--show{
+    opacity:1;
+}
+
+.c-password-toggle__symbol--hide {
+    opacity:0;
+}
+
+/* focused and active state */
+
+.c-password-toggle__input:checked + .c-password-toggle__symbol .c-password-toggle__symbol--hide {
+    opacity: 1;
+}
+.c-password-toggle__input:checked + .c-password-toggle__symbol .c-password-toggle__symbol--show {
+    opacity: 0;
+}
+
+/* Range */
+
+.c-range {
+    display: block;
+    height: 8px;
+    padding: 0;
+    border-radius: 8px;
+    background-color: var(--color-neutral-xxxx-light);
+    border: 1px solid var(--color-neutral-xxx-light);
+}
+
+/* Zorgt voor het ronde bolletje*/
+.c-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 8px;
+    background: var(--color-alpha);
+}
+
+.c-range-holder {
+    position: absolute;
+    width: calc(100% - 18px);
+    content: attr(data-value);
+}
+
+.c-range-holder::after {
+    position: absolute;
+    content: attr(data-value);
+    display: inline-block;
+    width: 32px;
+    margin-top: 12px;
+    padding: 4px;
+    font-size: .8rem;
+    text-align: center;
+    border-radius: 4px;
+    background: var(--color-neutral-xxxx-light);
+    transform: scale(0);
+    transition: transform 200ms ease-in-out;
+    transform-origin: center top;   
+}
+
+.c-range:active + .c-range-holder::after {
+    transform: scale(1);
+}
 
 /*
 	Component: Custom Like
 	---
 	Custom like button
 */
+
+.c-like__label {
+    height: 24px;
+    width: 24px;
+}
+
+.c-like__symbol {
+    fill: grey;
+
+    transition: transform 250ms ease-in-out;
+}
+
+.c-like__input:active + .c-like__label .c-like__symbol {
+    transform: scale(0.90);
+}
+
+.c-like__input:focus + .c-like__label .c-like__symbol {
+    box-shadow: var(--focus-shadow);
+}
+
+.c-like__input:checked + .c-like__label .c-like__symbol {
+    fill: red;
+}
 
 
 /*------------------------------------*\
